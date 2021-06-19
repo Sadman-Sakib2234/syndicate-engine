@@ -25,7 +25,7 @@ public class Window {
     private Window() {
         this.width = 1920;
         this.height = 1080;
-        this.title = "Mario";
+        this.title = "Syndicate Game Engine - v PRE-ALPHA";
         r = 1;
         b = 1;
         g = 1;
