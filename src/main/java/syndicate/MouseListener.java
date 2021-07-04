@@ -4,7 +4,6 @@ import static org.lwjgl.glfw.GLFW.GLFW_PRESS;
 import static org.lwjgl.glfw.GLFW.GLFW_RELEASE;
 
 public class MouseListener {
-    // Setups
     private static MouseListener instance;
     private double scrollX, scrollY;
     private double xPos, yPos, lastY, lastX;
@@ -12,19 +11,19 @@ public class MouseListener {
     private boolean isDragging;
 
     private MouseListener() {
-        //Inits
         this.scrollX = 0.0;
         this.scrollY = 0.0;
-        this.xPos    = 0.0;
-        this.yPos    = 0.0;
-        this.lastX   = 0.0;
-        this.lastY   = 0.0;
+        this.xPos = 0.0;
+        this.yPos = 0.0;
+        this.lastX = 0.0;
+        this.lastY = 0.0;
     }
-    // Get listener
+
     public static MouseListener get() {
         if (MouseListener.instance == null) {
             MouseListener.instance = new MouseListener();
         }
+
         return MouseListener.instance;
     }
 
