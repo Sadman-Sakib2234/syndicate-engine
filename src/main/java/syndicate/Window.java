@@ -3,6 +3,11 @@ package syndicate;
 import org.lwjgl.Version;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.opengl.GL;
+import renderer.DebugDraw;
+import renderer.Framebuffer;
+import scenes.LevelEditorScene;
+import scenes.LevelScene;
+import scenes.Scene;
 
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.*;
@@ -14,6 +19,7 @@ public class Window {
     private String title;
     private long glfwWindow;
     private ImGuiLayer imguiLayer;
+    private Framebuffer framebuffer;
 
     public float r, g, b, a;
     private boolean fadeToBlack = false;
@@ -25,7 +31,7 @@ public class Window {
     private Window() {
         this.width = 1920;
         this.height = 1080;
-        this.title = "Syndicate Game Engine - The UI";
+        this.title = "Syndicate Game Engine - The UI(v2.0)";
         r = 1;
         b = 1;
         g = 1;
@@ -36,18 +42,18 @@ public class Window {
         switch (newScene) {
             case 0:
                 currentScene = new LevelEditorScene();
-                currentScene.init();
-                currentScene.start();
                 break;
             case 1:
                 currentScene = new LevelScene();
-                currentScene.init();
-                currentScene.start();
                 break;
             default:
                 assert false : "Unknown scene '" + newScene + "'";
                 break;
         }
+
+        currentScene.load();
+        currentScene.init();
+        currentScene.start();
     }
 
     public static Window get() {
@@ -127,6 +133,8 @@ public class Window {
         this.imguiLayer = new ImGuiLayer(glfwWindow);
         this.imguiLayer.initImGui();
 
+        this.framebuffer = new Framebuffer(3840, 2160);
+
         Window.changeScene(0);
     }
 
@@ -139,12 +147,17 @@ public class Window {
             // Poll events
             glfwPollEvents();
 
+            DebugDraw.beginFrame();
+
             glClearColor(r, g, b, a);
             glClear(GL_COLOR_BUFFER_BIT);
 
+            //this.framebuffer.bind();
             if (dt >= 0) {
+                DebugDraw.draw();
                 currentScene.update(dt);
             }
+            this.framebuffer.unbind();
 
             this.imguiLayer.update(dt, currentScene);
             glfwSwapBuffers(glfwWindow);
@@ -153,6 +166,8 @@ public class Window {
             dt = endTime - beginTime;
             beginTime = endTime;
         }
+
+        currentScene.saveExit();
     }
 
     public static int getWidth() {

@@ -1,4 +1,4 @@
-package syndicate;
+package scenes;
 
 import components.*;
 import imgui.ImGui;

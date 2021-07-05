@@ -1,7 +1,5 @@
 package components;
 
-import syndicate.Component;
-
 public class FontRenderer extends Component {
 
     @Override
