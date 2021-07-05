@@ -2,7 +2,7 @@
 All notable changes to this project will be documented in this file.
 ## Changed
 
-### Update - 4/7/2021 - The UI 2.0
+### Update - 5/7/2021 - The UI 2.0
 
 - Custom Asset Manager - [ Now you can finally load your own sprites and sprite sheet in the engine and make a game with it ]
 - Imgui docking - [ Now you can finally dock winows in this update you can drag your window to dock it ]
